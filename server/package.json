@@ -6,8 +6,7 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc",
     "start": "node src",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/server.ts"
+    "dev": "ts-node src/index.ts"
   },
   "keywords": [],
   "type": "module",

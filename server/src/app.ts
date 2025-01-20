@@ -17,8 +17,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/users", userRoutes);
-app.use("/api/expenses", expenseRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/expenses", expenseRoutes);
 
 app.get("/", (req, res) => {
   console.log("Received request");
