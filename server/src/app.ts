@@ -3,8 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { connectDB } from "@/utils/db";
-import userRoutes from "@/routes/userRoutes";
-import expenseRoutes from "@/routes/expenseRoutes";
 
 
 dotenv.config();
