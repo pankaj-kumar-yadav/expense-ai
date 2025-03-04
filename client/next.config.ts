@@ -1,7 +1,49 @@
-import type { NextConfig } from "next";
+import { backendURL } from "@/lib/config/backend-url";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+// next.config.js
+import withNextIntl from "next-intl/plugin";
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true,
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2gb",
+    },
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/scormCourse/:path*",
+        destination: backendURL + "/:path*", // Proxy to Backend
+      },
+    ];
+  },
+  images: {
+    dangerouslyAllowSVG: true,
+    formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "lmsbackend.techapsol.com",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+    ],
+  },
+  i18n: {
+    i18nPath: "/src/messages",
+  },
 };
+export default withNextIntl("/src/messages")(nextConfig);
 
-export default nextConfig;
