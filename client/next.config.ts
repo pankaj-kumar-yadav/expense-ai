@@ -16,14 +16,14 @@ const nextConfig = {
       bodySizeLimit: "2gb",
     },
   },
-  async rewrites() {
-    return [
-      {
-        source: "/scormCourse/:path*",
-        destination: backendURL + "/:path*", // Proxy to Backend
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/scormCourse/:path*",
+  //       destination: backendURL + "/:path*", // Proxy to Backend
+  //     },
+  //   ];
+  // },
   images: {
     dangerouslyAllowSVG: true,
     formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[],

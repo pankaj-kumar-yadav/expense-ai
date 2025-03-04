@@ -4,11 +4,11 @@ import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import { NextIntlClientProvider } from 'next-intl';
-import { locales } from "@/i18n/request";
 
 import "../globals.css";
 import { setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
+import { locales } from "@/i18n/routing";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
