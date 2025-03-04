@@ -1,7 +1,8 @@
 import { backendURL } from "@/lib/config/backend-url";
 
 // next.config.js
-import withNextIntl from "next-intl/plugin";
+import createNextIntlPlugin from "next-intl/plugin";
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -41,9 +42,6 @@ const nextConfig = {
       },
     ],
   },
-  i18n: {
-    i18nPath: "/src/messages",
-  },
 };
-export default withNextIntl("/src/messages")(nextConfig);
+export default withNextIntl(nextConfig);
 
