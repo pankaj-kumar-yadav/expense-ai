@@ -1,4 +1,6 @@
-// import "module-alias/register";
+import moduleAlias from "module-alias";
+const aliasPath = process.env.NODE_ENV === "production" ? "dist" : "src";
+moduleAlias.addAlias("@", aliasPath);
 import { Request, Response } from "express";
 import app from "./app";
 
@@ -11,3 +13,4 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+// "dev": "ts-node-dev --respawn --transpile-only --experimental-specifier-resolution=node src/index.ts"
