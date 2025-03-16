@@ -1,8 +1,4 @@
-import moduleAlias from "module-alias";
-moduleAlias.addAlias(
-  "@",
-  process.env.NODE_ENV === "production" ? "dist" : "src"
-);
+import "dotenv/config";
 import { Request, Response } from "express";
 import app from "./app";
 
