@@ -1,6 +1,6 @@
 // src/controllers/authController.ts
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import User from "../../models/user/user";
+import User from "../../models/user/user-model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

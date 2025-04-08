@@ -1,9 +1,9 @@
 // src/routes/authRoutes.ts
-import express, { Router, Request, Response, NextFunction } from "express";
+import express from "express";
 import {
   register,
   login as loginController,
-} from "../../controllers/auth/authController";
+} from "../../controllers/auth/auth-controller";
 
 const router = express.Router();
 

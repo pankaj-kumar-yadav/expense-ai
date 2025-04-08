@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { connectDB } from "./utils/db";
-import authRoutes from "./routes/auth/authRoutes";
+import apiRouter from "./routes/index";
 
 dotenv.config();
 connectDB();
@@ -15,12 +15,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json()); // Important: Add this to parse JSON body
 
-// Routes
-// app.use("/api/users", userRoutes);
-// app.use("/api/expenses", expenseRoutes);
-
-// Auth routes
-app.use("/api/auth", authRoutes);
+// Use the apiRouter
+app.use(apiRouter);
 
 app.get("/", (req, res) => {
   console.log("Received request");
