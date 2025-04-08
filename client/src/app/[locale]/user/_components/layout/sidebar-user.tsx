@@ -1,244 +1,168 @@
-"use client";
-
 import * as React from "react";
-import {
-    Trophy,
-    Frame,
-    Map,
-    PieChart,
-    FlaskConical,
-    House,
-    BookOpen,
-    Vote,
-    Bell,
-} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
 import {
     Sidebar,
     SidebarContent,
+    SidebarFooter,
+    SidebarGroup,
+    SidebarGroupContent,
+    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    SidebarRail,
 } from "@/components/ui/sidebar";
-import { useAuthStore } from "@/store/use-auth-store";
-import Image from "next/image";
-import Link from "next/link";
-import { appLogo, appName, appType } from "@/constants/app-info/app-info-constants";
-import { NavCustom } from "@/components/nav-custom";
-import { customImageLoader } from "@/utils/image/image";
+import {
+    RiScanLine,
+    RiBardLine,
+    RiUserFollowLine,
+    RiCodeSSlashLine,
+    RiLoginCircleLine,
+    RiLayoutLeftLine,
+    RiSettings3Line,
+    RiLeafLine,
+    RiLogoutBoxLine,
+} from "@remixicon/react";
+import { SearchForm } from "@/components/common/user/dashboard/search-form";
+import { TeamSwitcher } from "@/components/common/user/dashboard/team-switcher";
 
-// const getCoursesItems = () => {
-//   const _dArr = [
-//     {
-//       title: "My Courses",
-//       url: "/user/my-courses",
-//     },
-//     {
-//       title: "Favorite Courses",
-//       url: "/user/favorite-courses",
-//     },
-//   ];
-//   if (process.env.NEXT_PUBLIC_ADMIN_COURSE == "false") {
-//     _dArr.push({
-//       title: "Explore Courses",
-//       url: "/user/explore-courses",
-//     });
-//   }
-
-//   return _dArr;
-// };
-
+// This is sample data.
 const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
+    teams: [
+        {
+            name: "InnovaCraft",
+            logo: "https://res.cloudinary.com/dlzlfasou/image/upload/v1741345507/logo-01_kp2j8x.png",
+        },
+        {
+            name: "Acme Corp.",
+            logo: "https://res.cloudinary.com/dlzlfasou/image/upload/v1741345507/logo-01_kp2j8x.png",
+        },
+        {
+            name: "Evil Corp.",
+            logo: "https://res.cloudinary.com/dlzlfasou/image/upload/v1741345507/logo-01_kp2j8x.png",
+        },
+    ],
     navMain: [
         {
-            title: "Home",
-            url: "/user",
-            icon: House,
-            items: [],
-        },
-        // process.env.NEXT_PUBLIC_REQUIRE_PAYMENT === "true" && {
-        //   title: "Explore Courses",
-        //   url: "/user/explore-course",
-        //   icon: LayoutDashboard,
-        //   items: [],
-        // },
-
-        {
-            title: "My Learning Path",
-            url: "/user/skill-path",
-            icon: FlaskConical,
-            items: [],
-        },
-        {
-            title: "Courses",
+            title: "Sections",
             url: "#",
-            icon: BookOpen,
             items: [
                 {
-                    title: "My Courses",
-                    url: "/user/my-courses",
+                    title: "Dashboard",
+                    url: "#",
+                    icon: RiScanLine,
                 },
                 {
-                    title: "Favorite Courses",
-                    url: "/user/favorite-courses",
+                    title: "Insights",
+                    url: "#",
+                    icon: RiBardLine,
+                },
+                {
+                    title: "Contacts",
+                    url: "#",
+                    icon: RiUserFollowLine,
+                    isActive: true,
+                },
+                {
+                    title: "Tools",
+                    url: "#",
+                    icon: RiCodeSSlashLine,
+                },
+                {
+                    title: "Integration",
+                    url: "#",
+                    icon: RiLoginCircleLine,
+                },
+                {
+                    title: "Layouts",
+                    url: "#",
+                    icon: RiLayoutLeftLine,
+                },
+                {
+                    title: "Reports",
+                    url: "#",
+                    icon: RiLeafLine,
                 },
             ],
         },
         {
-            title: "Certificates",
-            url: "/user/certification",
-            icon: Trophy,
-            isActive: true,
-        },
-        {
-            title: "Polls & Surveys",
+            title: "Other",
             url: "#",
-            icon: Vote,
-            isActive: true,
             items: [
                 {
-                    title: "Polls",
-                    url: "/user/poll",
-                    isActive: true,
+                    title: "Settings",
+                    url: "#",
+                    icon: RiSettings3Line,
                 },
                 {
-                    title: "Surveys",
-                    url: "/user/survey",
-                    isActive: true,
+                    title: "Help Center",
+                    url: "#",
+                    icon: RiLeafLine,
                 },
             ],
-        },
-        // {
-        //     title: "Chat with Expert",
-        //     url: "/user/certification",
-        //     icon: ChatBubbleIcon,
-        //     isActive: false,
-        //     disabled: true,
-        // },
-        // {
-        //     title: "Settings",
-        //     url: "#",
-        //     icon: Settings2,
-        //     items: [
-        //         {
-        //             title: "General",
-        //             url: "/user/settings/general",
-        //         },
-        //         {
-        //             title: "Appearance",
-        //             url: "/user/settings/appearance",
-        //         },
-        //     ],
-        // },
-    ],
-    navSecondary: [
-        {
-            title: "Notifications",
-            url: "/user/notifications",
-            icon: Bell,
-        },
-        // {
-        //   title: "Support",
-        //   url: "/user/support",
-        //   icon: LifeBuoy,
-        // },
-        // {
-        //   title: "Feedback",
-        //   url: "/user/feedback",
-        //   icon: Send,
-        // },
-    ],
-    projects: [
-        {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
-        },
-        {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
-        },
-        {
-            name: "Travel",
-            url: "#",
-            icon: Map,
         },
     ],
 };
 
 export function SidebarUser({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { userData } = useAuthStore();
-
-    const user = React.useMemo(() => {
-        if (!userData) {
-            return {
-                name: "Guest User",
-                email: "guest@example.com",
-                avatar: "https://api.dicebear.com/6.x/initials/svg?seed=GU",
-                fallbackLetter: "GU",
-            };
-        }
-
-        return {
-            name: `${userData?.first_name} ${userData?.middle_name ? userData?.middle_name : ""} ${userData?.last_name}`,
-            first_name: userData?.first_name,
-            email: userData?.email,
-            avatar: `https://api.dicebear.com/6.x/initials/svg?seed=${userData?.first_name.charAt(
-                0
-            )}${userData?.last_name.charAt(0)}`,
-            fallbackLetter: `${userData?.first_name.charAt(0)}${userData?.last_name.charAt(0)}`,
-        };
-    }, [userData]);
-
     return (
-        <Sidebar variant="inset" {...props}>
+        <Sidebar {...props}>
             <SidebarHeader>
+                <TeamSwitcher teams={data.teams} />
+                <hr className="border-t border-border mx-2 -mt-px" />
+                <SearchForm className="mt-3" />
+            </SidebarHeader>
+            <SidebarContent>
+                {/* We create a SidebarGroup for each parent. */}
+                {data.navMain.map((item) => (
+                    <SidebarGroup key={item.title}>
+                        <SidebarGroupLabel className="uppercase text-muted-foreground/60">
+                            {item.title}
+                        </SidebarGroupLabel>
+                        <SidebarGroupContent className="px-2">
+                            <SidebarMenu>
+                                {item.items.map((item) => (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton
+                                            asChild
+                                            className="group/menu-button font-medium gap-3 h-9 rounded-md bg-gradient-to-r hover:bg-transparent hover:from-sidebar-accent hover:to-sidebar-accent/40 data-[active=true]:from-primary/20 data-[active=true]:to-primary/5 [&>svg]:size-auto"
+                                            isActive={item.isActive}
+                                        >
+                                            <a href={item.url}>
+                                                {item.icon && (
+                                                    <item.icon
+                                                        className="text-muted-foreground/60 group-data-[active=true]/menu-button:text-primary"
+                                                        size={22}
+                                                        aria-hidden="true"
+                                                    />
+                                                )}
+                                                <span>{item.title}</span>
+                                            </a>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                            </SidebarMenu>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                ))}
+            </SidebarContent>
+            <SidebarFooter>
+                <hr className="border-t border-border mx-2 -mt-px" />
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href="/user">
-                                {/* <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Command className="size-4" />
-                </div> */}
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-                                    <Image
-                                        src={appLogo}
-                                        alt={appName}
-                                        loader={() => customImageLoader({ src: appLogo, width: 32, quality: 100 })}
-                                        width={32}
-                                        height={32}
-                                        quality={100}
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="rounded-md"
-                                    />
-                                </div>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">{appName}</span>
-                                    <span className="truncate text-xs">{appType}</span>
-                                </div>
-                            </Link>
+                        <SidebarMenuButton className="font-medium gap-3 h-9 rounded-md bg-gradient-to-r hover:bg-transparent hover:from-sidebar-accent hover:to-sidebar-accent/40 data-[active=true]:from-primary/20 data-[active=true]:to-primary/5 [&>svg]:size-auto">
+                            <RiLogoutBoxLine
+                                className="text-muted-foreground/60 group-data-[active=true]/menu-button:text-primary"
+                                size={22}
+                                aria-hidden="true"
+                            />
+                            <span>Sign Out</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
-            </SidebarHeader>
-            <SidebarContent>
-                <NavCustom userName={user?.first_name} />
-                {/* <NavMain items={data.navMain?.filter((item) => item !== false)} /> */}
-                <NavMain items={data.navMain} />
-                {/* <NavProjects projects={data.projects} /> */}
-                {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
-            </SidebarContent>
-            {/* <SidebarFooter>
-        <NavUser user={user} role="user" />
-      </SidebarFooter> */}
+            </SidebarFooter>
+            <SidebarRail />
         </Sidebar>
     );
 }
